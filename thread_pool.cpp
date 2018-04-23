@@ -66,7 +66,6 @@ void ThreadPool::clearThreads()
     pthread_cond_destroy(&condition);
 }
 
-
 int ThreadPool::getQueueSize()
 {
     pthread_mutex_lock(&mutex);
@@ -85,9 +84,9 @@ void ThreadPool::addTask(Task* pTask)
 {
     pthread_mutex_lock(&mutex);
     taskQueue.push(pTask);
+    printf("one task is put into queue! Current queue size is %lu\n",taskQueue.size());
     pthread_mutex_unlock(&mutex);
     pthread_cond_signal(&condition);
-    printf("one task is put into queue!\n");
 }
 
 

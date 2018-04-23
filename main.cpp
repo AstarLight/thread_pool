@@ -3,25 +3,21 @@
 #include <string>
 #include <stdlib.h>
 
-
 typedef struct
 {
     int task_id;
     std::string task_name;
 }msg_t;
 
-
 class MyTask: public Task
 {
 public:
-
     int run()
     {
-
         msg_t* msg = (msg_t*)arg;
         printf("working thread[%lu] : task_id:%d  task_name:%s\n", pthread_self(),
                msg->task_id, msg->task_name.c_str());
-        sleep(msg->task_id);
+        sleep(10);
         return 0;
     }
 };
@@ -47,7 +43,7 @@ int main()
 
     while(1)
     {
-        printf("there are still %d tasks need to process\n", pMyPool->getQueueSize());
+        //printf("there are still %d tasks need to process\n", pMyPool->getQueueSize());
         if (pMyPool->getQueueSize() == 0)
         {
             printf("Now I will exit from main\n");
@@ -55,8 +51,8 @@ int main()
         }
 
         sleep(1);
-
     }
+
     delete pMyPool;
     return 0;
 }
