@@ -14,7 +14,7 @@ class MyTask: public Task
 public:
     int run()
     {
-        msg_t* msg = (msg_t*)arg;
+        msg_t* msg = (msg_t*)arg;   //参数解析
         printf("working thread[%lu] : task_id:%d  task_name:%s\n", pthread_self(),
                msg->task_id, msg->task_name.c_str());
         sleep(10);
@@ -24,7 +24,7 @@ public:
 
 int main()
 {
-    ThreadPool* pMyPool = ThreadPool::createThreadPool(5);
+    ThreadPool* pMyPool = ThreadPool::createThreadPool(5); //建立大小为5的线程池
     char buf[32] = {0};
 
     msg_t msg[10];
@@ -35,9 +35,9 @@ int main()
     {
         msg[i].task_id = i;
         sprintf(buf,"qq_task_%d",i);
-        msg[i].task_name = buf;
-        task_A[i].SetArg(&msg[i]);
-        pMyPool->addTask(&task_A[i]);
+        msg[i].task_name = buf; 
+        task_A[i].SetArg(&msg[i]);      //设置函数参数
+        pMyPool->addTask(&task_A[i]);    //任务入队
         sleep(1);
     }
 
